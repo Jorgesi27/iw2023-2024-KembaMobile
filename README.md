@@ -1,4 +1,4 @@
-# iw2023-2024-KEMBA
+# iw2023-2024-KembaMobile
 Proyecto IW
 
 Miembros del equipo de trabajo: Pedro Jesús Sánchez Sánchez, Jorge Antonio Sánchez Benítez y Juan Pedro Romero Rodríguez.
