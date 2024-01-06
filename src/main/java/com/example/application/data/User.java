@@ -1,60 +1,61 @@
 package com.example.application.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Lob;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jdk.internal.icu.text.UnicodeSet;
+
+import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "application_user")
 public class User extends AbstractEntity {
 
-    private String username;
+    private UUID id;
+    public UUID getId() { return id; }
+    public void setId(UUID id) { this.id = id; }
+
+    @Override
+    public UnicodeSet getServicesContracted() {
+        return null;
+    }
+
+    @Override
+    public Optional<Object> getRoles() {
+        return Optional.empty();
+    }
+
     private String name;
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    private Role role;
+    public Role getRole() { return role; }
+    public void setRole(Role role) { this.role = role; }
+
+    private Contract contract = null;
+    public Contract getContract() { return contract; }
+    public void setContract(Contract contract) { this.contract = contract; }
+
     @JsonIgnore
     private String hashedPassword;
-    @Enumerated(EnumType.STRING)
-    @ElementCollection(fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    public String getHashedPassword() { return hashedPassword; }
+    public void setHashedPassword(String hashedPassword) { this.hashedPassword = hashedPassword; }
+    /*
     @Lob
     @Column(length = 1000000)
     private byte[] profilePicture;
-
-    public String getUsername() {
-        return username;
-    }
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
+    public byte[] getProfilePicture() { return profilePicture; }
+    public void setProfilePicture(byte[] profilePicture) {  this.profilePicture = profilePicture; }
+    */
+    public User(String name,  Role role, Contract contract, String hashedPassword/*, byte[] profilePicture*/) {
+        this.id = UUID.randomUUID();
         this.name = name;
-    }
-    public String getHashedPassword() {
-        return hashedPassword;
-    }
-    public void setHashedPassword(String hashedPassword) {
+        this.role = role;
+        this.contract = contract;
         this.hashedPassword = hashedPassword;
+        /*
+        this.profilePicture = profilePicture;*/
     }
-    public Set<Role> getRoles() {
-        return roles;
-    }
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-    public byte[] getProfilePicture() {
-        return profilePicture;
-    }
-    public void setProfilePicture(byte[] profilePicture) {
-        this.profilePicture = profilePicture;
-    }
-
 }
